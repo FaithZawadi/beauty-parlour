@@ -37,7 +37,7 @@ export default function Newsletter() {
         </button>
       </form>
       {state && (
-        <p className="newsletter__msg" style={{ color: state.ok ? "var(--gold-light)" : "#e8a493" }}>
+        <p className="newsletter__msg" style={{ color: state.ok ? "var(--gold-light)" : "#f3a99c" }}>
           {state.msg}
         </p>
       )}
