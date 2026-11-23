@@ -341,6 +341,7 @@ em.serif,
   font-family: var(--font-display), serif;
   font-size: 1.75rem;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .logo__tag {
@@ -354,7 +355,7 @@ em.serif,
 .nav {
   display: flex;
   align-items: center;
-  gap: clamp(18px, 2.2vw, 34px);
+  gap: clamp(18px, 2vw, 30px);
 }
 
 .nav a {
@@ -364,6 +365,7 @@ em.serif,
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 6px 0;
+  white-space: nowrap;
 }
 
 .nav a::after {
@@ -385,6 +387,7 @@ em.serif,
 .header__book {
   min-height: 44px;
   padding: 0 24px;
+  white-space: nowrap;
 }
 
 .menu-toggle {
@@ -416,7 +419,7 @@ em.serif,
 .menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
 .menu-open .menu-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-@media (max-width: 1100px) {
+@media (max-width: 1260px) {
   .menu-toggle {
     display: block;
   }
@@ -604,7 +607,11 @@ em.serif,
     margin-top: -60px;
   }
   .booking-bar form {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .booking-bar .field {
+    padding: 16px 18px;
+    min-width: 0;
   }
   .booking-bar .field:first-child {
     grid-column: 1 / -1;
@@ -649,6 +656,7 @@ em.serif,
   padding: 8px 0;
   outline: none;
   transition: border-color 0.3s;
+  min-width: 0;
   -webkit-appearance: none;
   appearance: none;
 }
