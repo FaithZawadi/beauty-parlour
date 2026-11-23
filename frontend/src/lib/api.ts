@@ -29,8 +29,16 @@ export type Branch = {
   room_types?: RoomType[];
 };
 
-const SERVER_API = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api";
-export const CLIENT_API = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api";
+/* Accepts "https://host/api", "https://host" or a bare "host" (as Render provides). */
+function apiBase(value: string | undefined) {
+  let v = (value ?? "").trim().replace(/\/+$/, "");
+  if (!v) return "http://127.0.0.1:8000/api";
+  if (!/^https?:\/\//.test(v)) v = `https://${v}`;
+  return v.endsWith("/api") ? v : `${v}/api`;
+}
+
+const SERVER_API = apiBase(process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL);
+export const CLIENT_API = apiBase(process.env.NEXT_PUBLIC_API_URL);
 
 async function get<T>(path: string): Promise<T | null> {
   try {

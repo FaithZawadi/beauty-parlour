@@ -1,0 +1,83 @@
+# Render Blueprint – creates the database, the Laravel API and the Next.js site.
+# Render dashboard → New → Blueprint → pick this repository.
+#
+# Plans: "free" is fine for testing, but free web services sleep after 15 minutes
+# without visitors (first visit then takes ~1 minute) and free databases expire
+# after 30 days. For the live hotel site switch all three to "starter" or higher.
+
+databases:
+  - name: tommys-db
+    databaseName: tommys_lounge
+    user: tommys
+    plan: free
+    region: frankfurt
+
+services:
+  # ---------- Laravel API (Docker) ----------
+  - type: web
+    name: tommys-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: Tommy's Lounge API
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        generateValue: true
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: array
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: tommys-db
+          property: connectionString
+      # Reload branches/rooms/prices from DatabaseSeeder on every deploy.
+      - key: SEED_ON_START
+        value: "true"
+      # Website address allowed to call the API (add your own domain later, comma-separated).
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: tommys-web
+          property: host
+
+  # ---------- Next.js website ----------
+  - type: web
+    name: tommys-web
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      # Used by server-rendered pages and by forms in the browser.
+      - key: API_URL
+        fromService:
+          type: web
+          name: tommys-api
+          property: host
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: tommys-api
+          property: host
