@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ReactNode, type ElementType } from "react";
 
-/* Fades its children in when they scroll into view. */
+/* Fades its children in as soon as any part scrolls into view. */
 export default function Reveal({
   children,
   as: Tag = "div",
@@ -26,7 +26,7 @@ export default function Reveal({
           io.disconnect();
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0, rootMargin: "0px 0px 60px 0px" }
     );
     io.observe(el);
     return () => io.disconnect();

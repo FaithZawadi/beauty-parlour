@@ -12,9 +12,9 @@ export default function DiningPage() {
     <>
       <PageHero
         kicker="Dining & Lounge"
-        title="Pour, savour, linger"
+        title="Eat well, stay a while"
         image="dining"
-        lead="From the first coffee of the morning to the last cocktail of the night."
+        lead="From breakfast with your stay to nyama choma and drinks in the lounge."
       />
       <section className="section">
         <div className="container">
@@ -31,14 +31,14 @@ export default function DiningPage() {
                 <span className="hours">{d.hours}</span>
                 <p className="lead">{d.text}</p>
                 <Link href="/contact" className="link-arrow mt-40">
-                  Reserve a table
+                  Ask about group bookings
                 </Link>
               </Reveal>
             </div>
           ))}
         </div>
       </section>
-      <CtaBand title="Celebrating? Ask about private dining and lounge hire." image="lounge" />
+      <CtaBand title="Celebrating? Ask about lounge hire and group packages." image="lounge" />
     </>
   );
 }

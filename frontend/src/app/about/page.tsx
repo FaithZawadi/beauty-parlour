@@ -8,14 +8,14 @@ export const metadata = { title: "About" };
 
 const VALUES = [
   { title: "Warmth", text: "Genuine Kenyan hospitality – we greet you by name and remember the details." },
-  { title: "Craft", text: "From cocktails to bed linen, we choose quality and do things properly." },
-  { title: "Ease", text: "Seamless bookings, fast Wi-Fi and help with anything you need, day or night." },
+  { title: "Comfort", text: "Clean rooms, good beds and breakfast to start your day right." },
+  { title: "Value", text: "Fair prices with Wi-Fi, parking and breakfast included." },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      <PageHero kicker="About us" title={`The ${HOTEL.name} story`} image="lobby" />
+      <PageHero kicker="About us" title={`The ${HOTEL.name} story`} image="lobby" lead="Simple, warm Kenyan hospitality – done properly." />
       <section className="section">
         <div className="container split">
           <Reveal className="framed">
@@ -29,12 +29,12 @@ export default function AboutPage() {
               Born in a lounge, <em className="serif-italic">raised</em> on hospitality
             </h2>
             <p className="lead">
-              What started as a lounge with a loyal following has grown into a family of hotels across Kenya.
+              What started as a lounge with a loyal following now welcomes overnight guests in Nairobi and Ikombe.
             </p>
             <p>
-              Our guests kept asking for somewhere to stay after the music ended – so we built it. Each branch pairs
-              comfortable, beautifully finished rooms with the relaxed, sociable atmosphere that made the lounge
-              famous. {/* Replace with the real history of Tommy's Lounge. */}
+              {/* TODO: replace with the real history of Tommy's Lounge. */}
+              Each branch pairs clean, comfortable rooms with the relaxed, sociable atmosphere the lounge is known
+              for – breakfast in the morning, the pool by day and good company in the evening.
             </p>
           </Reveal>
         </div>

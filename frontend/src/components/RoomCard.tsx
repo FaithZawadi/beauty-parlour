@@ -13,7 +13,7 @@ export default function RoomCard({ room, branch }: { room: RoomType; branch?: st
       </div>
       <div className="card__body">
         <span className="card__meta">
-          {room.size_sqm} m² · Up to {room.max_guests} guests
+          {room.size_sqm ? `${room.size_sqm} m² · ` : ""}Sleeps {room.max_guests}
         </span>
         <h3>{room.name}</h3>
         <p>{room.description}</p>

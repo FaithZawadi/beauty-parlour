@@ -14,9 +14,9 @@ export default async function RoomsPage() {
     <>
       <PageHero
         kicker="Rooms & Suites"
-        title="Spaces made for slow mornings"
+        title="Rooms made for rest"
         image="room-suite"
-        lead="Every room includes breakfast, high-speed Wi-Fi and our signature bedding."
+        lead="Clean, comfortable rooms with free Wi-Fi and free parking at every branch."
       />
       <section className="section">
         <div className="container">
@@ -30,7 +30,7 @@ export default async function RoomsPage() {
               </Reveal>
               <Reveal delay={120}>
                 <p className="kicker">
-                  {r.size_sqm} m² · Up to {r.max_guests} guests
+                  {r.size_sqm ? `${r.size_sqm} m² · ` : ""}Sleeps {r.max_guests}
                 </p>
                 <h2 style={{ marginBottom: 20 }}>{r.name}</h2>
                 <p className="lead">{r.description}</p>
@@ -61,7 +61,7 @@ export default async function RoomsPage() {
           ))}
         </div>
       </section>
-      <CtaBand title="Staying longer? Ask us about weekly and corporate rates." image="room-deluxe" />
+      <CtaBand title="Staying longer or booking for a group? Ask us about special rates." image="room-deluxe" />
     </>
   );
 }

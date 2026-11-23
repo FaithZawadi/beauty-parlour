@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HOTEL, NAV } from "@/data/site";
 import { getBranches } from "@/lib/api";
+import Crest from "./Crest";
 
 export default async function Footer() {
   const branches = (await getBranches()) ?? [];
@@ -10,11 +11,15 @@ export default async function Footer() {
         <div className="footer__top">
           <div>
             <Link href="/" className="logo">
-              <span className="logo__name">{HOTEL.name}</span>
-              <span className="logo__tag">{HOTEL.tagline}</span>
+              <Crest size={30} />
+              <span className="logo__text">
+                <span className="logo__name">{HOTEL.name}</span>
+                <span className="logo__tag">{HOTEL.tagline}</span>
+              </span>
             </Link>
             <p>
-              Refined rooms, memorable dining and a lounge worth staying up for, across our branches in Kenya.
+              Comfortable rooms, good food and a lounge worth staying up for – near the airport in Nairobi and in
+              Ikombe, Machakos.
             </p>
           </div>
           <div>
@@ -32,7 +37,7 @@ export default async function Footer() {
             <ul>
               {branches.map((b) => (
                 <li key={b.slug}>
-                  <Link href={`/branches/${b.slug}`}>{b.city}</Link>
+                  <Link href={`/branches/${b.slug}`}>{b.name}</Link>
                 </li>
               ))}
               {branches.length === 0 && <li>Coming soon</li>}

@@ -16,7 +16,7 @@ export default async function BranchesPage() {
         kicker="Our Branches"
         title="Find your Tommy's"
         image="exterior"
-        lead="City sophistication or coastal calm – choose the branch that suits your journey."
+        lead="Near the airport in Nairobi, or out in the Machakos countryside – choose the Tommy's that suits your trip."
       />
       <section className="section">
         <div className="container">
@@ -56,7 +56,7 @@ export default async function BranchesPage() {
           ))}
         </div>
       </section>
-      <CtaBand title="Can't decide? Our reservations team will help you choose." />
+      <CtaBand title="Not sure which branch? Call us – we'll help you choose." />
     </>
   );
 }

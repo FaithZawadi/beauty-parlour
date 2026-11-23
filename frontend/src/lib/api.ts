@@ -4,7 +4,7 @@ export type RoomType = {
   name: string;
   description: string;
   image: string;
-  size_sqm: number;
+  size_sqm: number | null;
   max_guests: number;
   bed: string;
   perks: string[];

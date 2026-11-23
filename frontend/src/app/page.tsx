@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import BookingBar from "@/components/BookingBar";
+import Crest from "@/components/Crest";
 import CtaBand from "@/components/CtaBand";
+import Marquee from "@/components/Marquee";
 import Newsletter from "@/components/Newsletter";
+import Ratings from "@/components/Ratings";
 import Reveal from "@/components/Reveal";
-import Reviews from "@/components/Reviews";
 import RoomCard from "@/components/RoomCard";
 import { DINING, EXPERIENCES, HOTEL, img } from "@/data/site";
 import { getBranches, getRooms, kes } from "@/lib/api";
@@ -13,25 +15,30 @@ export default async function Home() {
   const [branches, rooms] = await Promise.all([getBranches(), getRooms()]);
   const branchList = branches ?? [];
   const roomList = rooms ?? [];
+  const lowest = branchList
+    .map((b) => b.price_from)
+    .filter((p): p is number => p != null)
+    .sort((a, b) => a - b)[0];
 
   return (
     <>
       <section className="hero">
         <div className="hero__media">
-          <Image src={img("hero")} alt={`${HOTEL.name} pool at dusk`} fill priority sizes="100vw" />
+          <Image src={img("hero")} alt={`${HOTEL.name}`} fill priority sizes="100vw" />
         </div>
         <div className="container hero__content">
+          <p className="hero__karibu fade-up">{HOTEL.greeting}</p>
           <p className="kicker fade-up">Welcome to {HOTEL.name}</p>
           <h1 className="fade-up fade-up--2">
-            Where every stay <em className="serif-italic">feels</em> like an occasion
+            Stay easy. Unwind <em className="serif-italic">slowly.</em>
           </h1>
           <p className="lead fade-up fade-up--3">
-            Elegant rooms, unhurried dining and a lounge that sets the mood, at
-            {branchList.length > 1 ? ` ${branchList.length} distinctive branches` : " our branches"} across Kenya.
+            A calm night near the airport in Nairobi, or sunny pool days in Ikombe – breakfast, Wi-Fi and parking
+            included{lowest ? `, from ${kes(lowest)} a night` : ""}.
           </p>
           <div className="hero__actions fade-up fade-up--3">
             <Link href="/branches" className="btn btn--ghost">
-              Discover Our Branches
+              Discover our branches
             </Link>
           </div>
         </div>
@@ -40,56 +47,35 @@ export default async function Home() {
 
       <BookingBar branches={branchList} />
 
-      {/* Intro */}
-      <section className="section">
-        <div className="container split">
-          <Reveal className="framed">
-            <div className="frame frame--tall">
-              <Image src={img("lobby")} alt="Hotel lobby" fill sizes="(max-width: 960px) 100vw, 50vw" />
-            </div>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="kicker">Our story</p>
-            <h2>
-              Quiet luxury, <em className="serif-italic">warm</em> Kenyan hospitality
-            </h2>
-            <p className="lead">
-              {HOTEL.name} began as a place to gather – good music, great drinks, better company. Today it is a
-              collection of boutique hotels where that same spirit meets beautifully appointed rooms and thoughtful,
-              personal service.
-            </p>
-            <p>
-              Whether you are here for a business trip, a weekend escape or a celebration, every detail is designed
-              around you: crisp linens, generous breakfasts and a team that remembers how you like your coffee.
-            </p>
-            <Link href="/about" className="link-arrow mt-40">
-              About us
-            </Link>
-          </Reveal>
-        </div>
-      </section>
+      <div className="marquee-wrap">
+        <Marquee />
+      </div>
 
       {/* Branches */}
       {branchList.length > 0 && (
-        <section className="section section--dark">
+        <section className="section section--tight-top">
           <div className="container">
             <Reveal className="section-head section-head--center">
-              <p className="kicker kicker--center">Our Branches</p>
-              <h2>One signature, several homes</h2>
-              <p className="lead">Each branch has its own character, and the same promise of comfort and care.</p>
+              <Crest size={36} className="section-crest" />
+              <p className="kicker kicker--center">Our branches</p>
+              <h2>
+                {branchList.length === 2 ? "Two" : branchList.length} homes, one warm <em className="serif-italic">Karibu</em>
+              </h2>
             </Reveal>
-            <div className="grid-3">
+            <div className={branchList.length === 2 ? "grid-2" : "grid-3"}>
               {branchList.map((b, n) => (
                 <Reveal key={b.slug} delay={n * 120}>
-                  <Link href={`/branches/${b.slug}`} className="branch-tile">
-                    <Image src={img(b.image)} alt={b.name} fill sizes="(max-width: 960px) 100vw, 33vw" />
+                  <Link href={`/branches/${b.slug}`} className="branch-tile branch-tile--tall">
+                    <Image src={img(b.image)} alt={b.name} fill sizes="(max-width: 960px) 100vw, 50vw" />
+                    <span className="branch-tile__no">No. {String(n + 1).padStart(2, "0")}</span>
                     <div className="branch-tile__body">
                       <p className="branch-tile__city">{b.city}</p>
                       <h3>{b.name}</h3>
-                      {b.price_from != null && (
-                        <p style={{ color: "var(--cream)", marginBottom: 16 }}>Rooms from {kes(b.price_from)}</p>
-                      )}
-                      <span className="branch-tile__more">Explore branch</span>
+                      <p className="branch-tile__summary">{b.summary}</p>
+                      <div className="branch-tile__foot">
+                        {b.price_from != null && <span>From {kes(b.price_from)} / night</span>}
+                        <span className="branch-tile__more">Explore</span>
+                      </div>
                     </div>
                   </Link>
                 </Reveal>
@@ -99,13 +85,28 @@ export default async function Home() {
         </section>
       )}
 
+      {/* Ratings */}
+      <section className="section section--dark section--tight">
+        <div className="container">
+          <Reveal className="section-head section-head--center">
+            <p className="kicker kicker--center">What guests say</p>
+            <h2>Rated by the people who stay</h2>
+          </Reveal>
+          <Reveal>
+            <Ratings />
+          </Reveal>
+        </div>
+      </section>
+
       {/* Rooms */}
       <section className="section">
         <div className="container">
-          <Reveal className="section-head">
-            <p className="kicker">Rooms & Suites</p>
-            <h2>Rest, beautifully</h2>
-            <p className="lead">From cosy superior rooms to our signature suite, each space is a calm retreat.</p>
+          <Reveal className="section-head split-head">
+            <div>
+              <p className="kicker">Rooms</p>
+              <h2>Rest, beautifully</h2>
+            </div>
+            <p className="lead">Clean, comfortable rooms with breakfast, free Wi-Fi and free parking.</p>
           </Reveal>
           {roomList.length > 0 ? (
             <div className="grid-3">
@@ -118,11 +119,6 @@ export default async function Home() {
           ) : (
             <p className="notice">Room information is loading from our reservations system. Please check back shortly.</p>
           )}
-          <div className="text-center mt-40">
-            <Link href="/rooms" className="btn btn--ghost" style={{ color: "var(--gold-dark)" }}>
-              View All Rooms
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -135,22 +131,22 @@ export default async function Home() {
             </div>
           </Reveal>
           <Reveal delay={150}>
-            <p className="kicker">Dining & Lounge</p>
+            <p className="kicker">Food & drink</p>
             <h2>
-              Evenings at <em className="serif-italic">the Lounge</em>
+              It all started at <em className="serif-italic">the lounge</em>
             </h2>
             <p className="lead">
-              Crafted cocktails, a considered wine list and live music at the weekend. Our lounge is where the day slows
-              down and the night begins.
+              Cold drinks, good music and nyama choma off the grill. Whether you&apos;re staying the night or just
+              passing by, the lounge is where Tommy&apos;s comes alive.
             </p>
             <ul className="ticks" style={{ margin: "28px 0 36px" }}>
               {DINING.map((d) => (
                 <li key={d.name}>{d.name}</li>
               ))}
-              <li>Private dining</li>
+              <li>Group bookings</li>
             </ul>
             <Link href="/dining" className="link-arrow">
-              Dining & Lounge
+              Food & drink
             </Link>
           </Reveal>
         </div>
@@ -166,14 +162,13 @@ export default async function Home() {
           <div className="grid-3">
             {EXPERIENCES.map((x, n) => (
               <Reveal key={x.title} delay={n * 120}>
-                <article className="card">
-                  <div className="frame frame--square">
+                <article className="exp">
+                  <div className="frame frame--arch">
                     <Image src={img(x.image)} alt={x.title} fill sizes="(max-width: 960px) 100vw, 33vw" />
                   </div>
-                  <div className="card__body">
-                    <h3>{x.title}</h3>
-                    <p>{x.text}</p>
-                  </div>
+                  <span className="exp__no">0{n + 1}</span>
+                  <h3>{x.title}</h3>
+                  <p>{x.text}</p>
                 </article>
               </Reveal>
             ))}
@@ -181,43 +176,14 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Stats + reviews */}
-      <section className="section section--dark">
-        <div className="container">
-          <div className="stats" style={{ marginBottom: "clamp(70px, 10vw, 120px)" }}>
-            <div className="stat">
-              <strong>{branchList.length || "—"}</strong>
-              <span>Branches</span>
-            </div>
-            <div className="stat">
-              <strong>{roomList.length || "—"}</strong>
-              <span>Room types</span>
-            </div>
-            <div className="stat">
-              <strong>24/7</strong>
-              <span>Concierge</span>
-            </div>
-            <div className="stat">
-              <strong>365</strong>
-              <span>Nights of music</span>
-            </div>
-          </div>
-          <p className="kicker kicker--center" style={{ display: "flex" }}>
-            Guest stories
-          </p>
-          <Reviews />
-        </div>
-      </section>
+      <CtaBand title="Your room, your table, your weekend – we'll take care of the rest." image="resort" />
 
-      <CtaBand title="Your table, your suite, your evening – we'll take care of the rest." image="resort" />
-
-      {/* Newsletter */}
       <section className="section section--tight section--dark">
         <div className="container text-center">
           <p className="kicker kicker--center">Stay in touch</p>
-          <h2 style={{ marginBottom: 18 }}>Offers & lounge evenings</h2>
+          <h2 style={{ marginBottom: 18 }}>Offers & events</h2>
           <p className="lead" style={{ margin: "0 auto 36px" }}>
-            Be the first to hear about seasonal rates, events and new branches.
+            Be the first to hear about special rates, pool parties and lounge nights.
           </p>
           <Newsletter />
         </div>

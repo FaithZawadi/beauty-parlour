@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('image')->nullable();
-            $table->unsignedSmallInteger('size_sqm');
+            $table->unsignedSmallInteger('size_sqm')->nullable();
             $table->unsignedTinyInteger('max_guests');
             $table->string('bed');
             $table->jsonb('perks')->default('[]');

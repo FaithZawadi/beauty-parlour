@@ -12,15 +12,15 @@ export default function MeetingsPage() {
     <>
       <PageHero
         kicker="Meetings & Events"
-        title="Occasions, perfectly hosted"
+        title="Celebrate at Tommy's"
         image="events"
-        lead="Board meetings, conferences, weddings and milestone birthdays – planned with care."
+        lead="Birthdays, pool parties, family days and group stays – tell us your plans."
       />
       <section className="section">
         <div className="container split" style={{ alignItems: "start" }}>
           <Reveal>
             <p className="kicker">Our venues</p>
-            <h2 style={{ marginBottom: 30 }}>Spaces for every gathering</h2>
+            <h2 style={{ marginBottom: 30 }}>Ways to get together</h2>
             {VENUES.map((v) => (
               <div key={v.name} className="venue">
                 <h4>{v.name}</h4>
@@ -41,12 +41,12 @@ export default function MeetingsPage() {
           <div className="section-head section-head--center">
             <p className="kicker kicker--center">Enquiries</p>
             <h2>Plan your event</h2>
-            <p className="lead">Tell us about your occasion and our events team will be in touch within one working day.</p>
+            <p className="lead">Tell us about your occasion and we'll get back to you with options.</p>
           </div>
           <ContactForm defaultSubject="Event enquiry" />
         </div>
       </section>
-      <CtaBand title="Bringing a team? Our day-conference packages include meals and AV." image="lobby" />
+      <CtaBand title="Bringing a group? Ask us about group rates." image="lobby" />
     </>
   );
 }

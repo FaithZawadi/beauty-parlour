@@ -2,12 +2,13 @@
  * Static site content (things that rarely change).
  * Branches, room types and prices come from the Laravel API / PostgreSQL.
  *
- * >>> Contact details and reviews below are SAMPLE DATA – replace them. <<<
+ * >>> Phone, email, WhatsApp and social links below are PLACEHOLDERS – replace them. <<<
  */
 
 export const HOTEL = {
   name: "Tommy's Lounge",
   tagline: "Hotel & Lounge",
+  greeting: "Karibu",
   phone: "+254 700 000 000",
   email: "reservations@tommyslounge.co.ke",
   whatsapp: "254700000000",
@@ -39,6 +40,9 @@ export const IMAGES: Record<string, string> = {
   lounge: u("photo-1514933651103-005eec06c04b"),
   spa: u("photo-1544161515-4ab6ce6db874"),
   events: u("photo-1519167758481-83f550bb49b3"),
+  /* Replace these two with real photos of each branch, e.g. "/images/airport.jpg" */
+  "branch-airport": u("photo-1542314831-068cd1dbfeeb"),
+  "branch-ikombe": u("photo-1571896349842-33c89424de2d"),
 };
 
 export function img(key?: string | null): string {
@@ -49,7 +53,7 @@ export function img(key?: string | null): string {
 
 export const NAV = [
   { href: "/branches", label: "Our Branches" },
-  { href: "/rooms", label: "Rooms & Suites" },
+  { href: "/rooms", label: "Rooms" },
   { href: "/dining", label: "Dining & Lounge" },
   { href: "/meetings", label: "Meetings & Events" },
   { href: "/about", label: "About" },
@@ -59,42 +63,55 @@ export const NAV = [
 export const DINING = [
   {
     name: "The Lounge",
-    type: "Cocktails · Live music",
+    type: "Drinks · Music · Good company",
     image: "lounge",
-    hours: "4:00 pm – late",
-    text: "Our namesake. Low lights, crafted cocktails, a considered wine list and live sets every weekend.",
+    hours: "Open daily until late",
+    text: "The heart of every Tommy's. Cold drinks, good music and a relaxed crowd – the place to end the day.",
   },
   {
-    name: "The Dining Room",
-    type: "All-day dining",
+    name: "Breakfast at Tommy's",
+    type: "Included with your stay",
     image: "dining",
-    hours: "6:30 am – 11:00 pm",
-    text: "Generous breakfasts, relaxed lunches and candle-lit dinners celebrating Kenyan produce and global classics.",
+    hours: "Every morning",
+    text: "Start the day properly. Breakfast comes with your room, whether you're catching a flight or heading for the pool.",
   },
   {
-    name: "Poolside Grill",
-    type: "Grill · Light bites",
+    name: "The Grill",
+    type: "Nyama choma · Kenyan favourites",
     image: "pool",
-    hours: "11:00 am – 7:00 pm",
-    text: "Nyama choma, fresh juices and wood-fired favourites, served in the sun by the water.",
+    hours: "Lunch & dinner",
+    text: "Freshly grilled nyama choma, sides and cold drinks, served outdoors in the sunshine.",
   },
 ];
 
 export const EXPERIENCES = [
-  { title: "Spa & Wellness", text: "Massages, facials and steam rooms to restore body and mind.", image: "spa" },
-  { title: "Pool & Gardens", text: "Sun loungers, shaded cabanas and quiet green spaces.", image: "poolside" },
-  { title: "Meetings & Events", text: "Boardrooms to garden weddings, planned to the last detail.", image: "events" },
+  { title: "Pool days", text: "Sunshine, a sparkling pool and space to relax – especially at Ikombe.", image: "poolside" },
+  { title: "The Lounge", text: "Music, drinks and the easy, sociable atmosphere we're named after.", image: "lounge" },
+  { title: "Celebrations", text: "Birthdays, family days out and group events, hosted with care.", image: "events" },
+];
+
+/* Reasons to stay – shown in the gold ticker on the home page. */
+export const AMENITIES = [
+  "Breakfast included",
+  "Free Wi-Fi",
+  "Free parking",
+  "Swimming pool",
+  "Near the airport",
+  "Lounge & grill",
+  "Events & celebrations",
+  "Karibu sana",
 ];
 
 export const VENUES = [
-  { name: "The Boardroom", capacity: "Up to 12 guests", text: "Private, quiet and fully equipped for executive meetings." },
-  { name: "The Grand Hall", capacity: "Up to 250 guests", text: "Conferences, launches and gala dinners with full AV support." },
-  { name: "The Garden", capacity: "Up to 400 guests", text: "Weddings, birthdays and celebrations under the open sky." },
-  { name: "The Lounge – private hire", capacity: "Up to 80 guests", text: "Cocktail receptions and after-parties with a dedicated bar team." },
+  { name: "Poolside celebrations", capacity: "Ikombe", text: "Birthdays, family days and pool parties with food and drinks from the grill." },
+  { name: "Lounge hire", capacity: "All branches", text: "Private evenings and get-togethers with drinks and music." },
+  { name: "Meetings & group stays", capacity: "Airport Lounge", text: "Convenient for teams and travellers passing through Nairobi." },
+  { name: "Something else in mind?", capacity: "Just ask", text: "Tell us what you're planning and we'll make it work." },
 ];
 
-export const REVIEWS = [
-  { quote: "Beautiful rooms, warm staff and the best cocktails in town. We will be back.", name: "Sample guest", from: "Nairobi" },
-  { quote: "Spotless, quiet and so comfortable. Breakfast was excellent.", name: "Sample guest", from: "Kampala" },
-  { quote: "Perfect for our company retreat – every detail was taken care of.", name: "Sample guest", from: "Mombasa" },
+/* Public guest ratings (Google & Booking.com, Nov 2026). Update these from time to time. */
+export const RATINGS = [
+  { score: "4.7", out: "5", source: "Google", detail: "18 reviews", branch: "Tommy's Lounge Ikombe" },
+  { score: "4.5", out: "5", source: "Google", detail: "72 reviews", branch: "Tommy's Airport Lounge" },
+  { score: "7.6", out: "10", source: "Booking.com", detail: "47 reviews · Good", branch: "Tommy's Airport Lounge" },
 ];

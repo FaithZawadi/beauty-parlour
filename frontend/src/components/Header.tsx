@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HOTEL, NAV } from "@/data/site";
+import Crest from "./Crest";
 
 export default function Header() {
   const pathname = usePathname();
@@ -31,8 +32,11 @@ export default function Header() {
     <header className={`header${solid ? " header--solid" : ""}${open ? " menu-open" : ""}`}>
       <div className="container header__inner">
         <Link href="/" className="logo" aria-label={`${HOTEL.name} home`}>
-          <span className="logo__name">{HOTEL.name}</span>
-          <span className="logo__tag">{HOTEL.tagline}</span>
+          <Crest size={30} />
+          <span className="logo__text">
+            <span className="logo__name">{HOTEL.name}</span>
+            <span className="logo__tag">{HOTEL.tagline}</span>
+          </span>
         </Link>
 
         <nav className="nav" aria-label="Main">

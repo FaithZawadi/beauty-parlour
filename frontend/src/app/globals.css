@@ -333,8 +333,19 @@ em.serif,
 
 .logo {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 14px;
   line-height: 1;
+}
+
+.logo .crest {
+  color: var(--gold-light);
+  flex: none;
+}
+
+.logo__text {
+  display: flex;
+  flex-direction: column;
 }
 
 .logo__name {
@@ -552,7 +563,7 @@ em.serif,
 
 .page-hero {
   position: relative;
-  min-height: clamp(440px, 72vh, 680px);
+  min-height: clamp(400px, 62vh, 600px);
   display: flex;
   align-items: flex-end;
   color: var(--ivory);
@@ -562,9 +573,10 @@ em.serif,
 
 .page-hero__content {
   position: relative;
+  z-index: 1;
   width: 100%;
-  padding-top: 160px;
-  padding-bottom: clamp(56px, 9vw, 100px);
+  padding-top: 150px;
+  padding-bottom: clamp(48px, 6vw, 80px);
 }
 
 .page-hero__content h1 {
@@ -1370,3 +1382,256 @@ em.serif,
 .text-center { text-align: center; }
 .mt-40 { margin-top: 40px; }
 .mb-0 { margin-bottom: 0; }
+
+
+/* ==========================================================================
+   Signature details
+   ========================================================================== */
+
+/* Gold inset frame on full-bleed heroes */
+.hero::before,
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: clamp(10px, 1.6vw, 22px);
+  border: 1px solid rgba(232, 201, 122, 0.4);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Remove dead space between page heroes and the first section */
+.page-hero + .section,
+.page-hero + section {
+  padding-top: clamp(48px, 6vw, 80px);
+}
+
+.section--tight-top {
+  padding-top: clamp(48px, 6vw, 80px);
+}
+
+.page-hero__crest {
+  position: absolute;
+  z-index: 1;
+  right: calc(var(--gutter) + 12px);
+  bottom: clamp(48px, 6vw, 80px);
+  color: var(--gold-light);
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .page-hero__crest { display: none; }
+}
+
+.crumbs {
+  display: flex;
+  gap: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 20px;
+}
+
+.crumbs a:hover { color: #fff; }
+
+/* Big "Karibu" script behind the hero headline */
+.hero__karibu {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-size: clamp(4.5rem, 14vw, 11rem);
+  line-height: 0.8;
+  color: rgba(232, 201, 122, 0.22);
+  margin: 0 0 -0.22em -0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Amenities ticker */
+.marquee-wrap {
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.marquee span {
+  display: inline-flex;
+  align-items: center;
+  gap: 34px;
+  padding-right: 34px;
+  font-family: var(--font-display), serif;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.marquee i {
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--gold);
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Section crest */
+.section-crest {
+  display: block;
+  margin: 0 auto 18px;
+  color: var(--gold);
+}
+
+/* Large branch tiles */
+.branch-tile--tall {
+  min-height: clamp(520px, 62vw, 680px);
+}
+
+.branch-tile__no {
+  position: absolute;
+  z-index: 1;
+  top: 30px;
+  left: 34px;
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--gold-light);
+  letter-spacing: 0.06em;
+}
+
+.branch-tile__summary {
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 460px;
+  margin-bottom: 22px;
+}
+
+.branch-tile__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(232, 201, 122, 0.35);
+  font-size: 0.9rem;
+}
+
+/* Ratings */
+.ratings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+}
+
+.rating {
+  padding: clamp(28px, 4vw, 46px) 24px;
+  text-align: center;
+  border-right: 1px solid var(--line);
+}
+
+.rating:last-child { border-right: 0; }
+
+.rating__score {
+  font-family: var(--font-display), serif;
+  font-size: clamp(3.2rem, 6vw, 4.6rem);
+  line-height: 1;
+  color: #fff;
+}
+
+.rating__score small {
+  font-size: 0.4em;
+  color: var(--muted-light);
+}
+
+.rating__stars {
+  color: var(--gold-light);
+  letter-spacing: 0.3em;
+  margin: 12px 0 14px;
+}
+
+.rating__source {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-light) !important;
+  margin-bottom: 8px;
+}
+
+.rating__detail {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .ratings { grid-template-columns: 1fr; }
+  .rating { border-right: 0; border-bottom: 1px solid var(--line); }
+  .rating:last-child { border-bottom: 0; }
+}
+
+/* Section head with lead on the right */
+.split-head {
+  max-width: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 60px;
+}
+
+.split-head h2 { margin-bottom: 0; }
+.split-head .lead { margin: 0; max-width: 420px; }
+
+/* Arched experience cards */
+.frame--arch {
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px 0 0;
+}
+
+.exp {
+  text-align: center;
+}
+
+.exp__no {
+  display: block;
+  margin: 26px 0 8px;
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+
+.exp h3 {
+  margin-bottom: 10px;
+}
+
+.exp p {
+  color: var(--muted);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.exp:hover .frame img {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* First alternating row sits right under the hero */
+.feature:first-child {
+  padding-top: 0;
+}
